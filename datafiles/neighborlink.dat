@@ -1,0 +1,76 @@
+#####################################################################
+#  Copyright (C) 2006-2007 Thales Avionics-InFlight Systems LLC, Irvine, CA
+#
+#  File : neighborlink.dat - Topology Discovery input file
+#  NOTE : The following convention is used 
+#        PortID is 1 based
+#        DSU-D2 - The host name DSU-D2-<unit-id>-1 is used.
+#                 Interface number will be from 1 to 4 for portID.
+#
+#        SVDU   - The PortID is always 1 from SVDU to QSEB for Gen2 SVDUs and ICMTs.
+#                 The PortID is always 2 from SVDU to QSEB for Gen3 SVDUs and ICMTs.
+#                 The PortID from QSEB to SVDU is switch port
+#                 on QSEB to the SVDU.
+#                 For example: QSEB40DEFG - SVDU41D is port 2
+#                                           SVDU41E is port 3
+#                                           SVDU41F is port 4
+#                                           SVDU41G is port 5
+#
+#        TPCU   - The Port ID is always 90 from SVDU to QSEB.
+#                 The PortID from QSEB to SVDU is 66, 67, 68, 69 for 
+#                 seat position of the TPCU within the QSEB.
+#                 For example: QSEB40DEFG - TPCU40D is port 66
+#                                           TPCU40E is port 67
+#                                           TPCU40F is port 68
+#                                            TPCU40G is port 69
+######################################################################
+#=======================================================================
+# Headend and distribution neighborlinks
+#=======================================================================
+hostname = "AVCDM-01",
+neighborName = "A-DBG-2",
+hostPortId = 4,
+neighborPortId = 9;
+
+hostname = "AVCDM1",
+neighborName = "ADBG1",
+hostPortId = 3,
+neighborPortId = 9;
+
+
+hostname = "DSU1",
+neighborName = "AVCDM1",
+hostPortId = 3,
+neighborPortId = 5;
+
+hostname = "DSU1",
+neighborName = "QSEBVCC",
+hostPortId = 2,
+neighborPortId = 11;
+
+hostname = "DSU1",
+neighborName = "ADBG1",
+hostPortId = 7,
+neighborPortId = 7;
+
+hostname = "DSU1",
+neighborName = "DSU2",
+hostPortId = 5,
+neighborPortId = 4;
+
+hostname = "DSU2",
+neighborName = "AVCDM1",
+hostPortId = 3,
+neighborPortId = 6;
+
+hostname = "DSU2",
+neighborName = "ADBG2",
+hostPortId = 7,
+neighborPortId = 7;
+
+#=======================================================================
+# Seatend neighborlinks
+#=======================================================================
+#
+# Beginning of non-looped column ############################################
+#

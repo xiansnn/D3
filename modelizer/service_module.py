@@ -49,6 +49,7 @@ class Service():
     '''
     classdocs
     '''
+
     def __init__(self, model, name, domain, provider, consumer):
         '''
         Constructor
@@ -66,8 +67,10 @@ class Service():
         service_dict.update({self.name: self})
 
         # on enregistre le nouveau service dans ses ressources source et cible
-        if consumer != None:   self.consumer.addInService(self)
-        if provider != None:   self.provider.addOutService(self)
+        if consumer != None:
+            self.consumer.addInService(self)
+        if provider != None:
+            self.provider.addOutService(self)
 
         if (provider != None) & (consumer != None):
             self.path = model.getshortestPathWithLink(provider, consumer)
@@ -78,9 +81,8 @@ class Service():
                 source_LRU_name = self.path[0].name
                 link_name = self.path[1].name
                 target_LRU_name = self.path[2].name
-                s = source_LRU_name + ':' + self.name + ' -> ' + link_name
-                + ':Communication -> ' + target_LRU_name+':'
-                + self.name + ';\n'
+                s = source_LRU_name + ':' + self.name + ' -> ' + link_name + \
+                    ':Communication -> ' + target_LRU_name+':' + self.name + ';\n'
                 self.path_pattern += s
 
             elif len(self.path) > 3:
@@ -134,10 +136,9 @@ class LINKservice(Service):
         super().__init__(model, name, domain, monitoring_host, consumer)
         # creation du pattern dependence
         s0 = ''
-        s0 += '\tSERVICE ' + self.name + ' DEPENDS_ON '
-        + monitored_ALIVE_service.name + ', status:\n'
-        s0 += '\t\tDEAD IF ' + monitored_ALIVE_service.name
-        + '=false & status=OK,\n'
+        s0 += '\tSERVICE ' + self.name + ' DEPENDS_ON ' + \
+            monitored_ALIVE_service.name + ', status:\n'
+        s0 += '\t\tDEAD IF ' + monitored_ALIVE_service.name + '=false & status=OK,\n'
         s0 += '\t\tnot_refreshed IF status=KO,\n'
         s0 += '\t\tUP OTHERWISE;\n'
         self.dependence = s0
@@ -172,7 +173,8 @@ class ALIVEserviceGenerator():
             net = model.undirected_net
         else:
             net = model.directed_net
-        for node in net.adjacency_iter():
+        # for node in net.adjacency_iter():
+        for node in net.adjacency():
             host_name = node[0]
             monitoring_host = res.resource_dict[host_name]
             neighbor_dict = node[1]
@@ -186,7 +188,7 @@ class ALIVEservice(Service):
         name = giveALIVEserviceName(monitoring_host, monitored_neighbor)
         domain = ServiceDomain('bool', ['true', 'false'])
         super().__init__(model, name, domain,
-             monitored_neighbor, monitoring_host)
+                         monitored_neighbor, monitoring_host)
         monitoring_host.ALIVE_service[self.name] = self
         s0 = ''
         s0 += '\tSERVICE ' + self.name + ' DEPENDS_ON status:\n'

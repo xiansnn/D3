@@ -11,6 +11,7 @@ class createDSLfile():
     '''
     classdocs
     '''
+
     def __init__(self, file_name, data_directory):
         '''
         Constructor
@@ -39,8 +40,8 @@ class createDSLfile():
         # section DOMAINS
         self.domain_section = 'DOMAINS\n'
         for d in srv.service_domain_dict:
-            self.domain_section += '\t'
-            + srv.service_domain_dict[d].declaration + '\n'
+            self.domain_section += '\t' + \
+                srv.service_domain_dict[d].declaration + '\n'
         self.domain_section += 'END\n\n'
         # section RESOURCES
         for r in res.resource_dict:

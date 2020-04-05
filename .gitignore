@@ -1,0 +1,5 @@
+D3.code-workspace
+/.vscode/*
+/modelizer/__pycache__/*.pyc
+/modelizer/parsetab.py
+modelizer/test.py
